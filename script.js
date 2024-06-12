@@ -96,19 +96,6 @@ function meassageValidation(){
     }
 }
 
-// whole Validation
-function formValidation(){
-    if(!nameValidation() || !emailValidation() || !passwordValidation() || !phoneValidation() || !meassageValidation()   ){
-        submitError.innerHTML=`Please Fix The Error Above`;
-        setTimeout(()=>{
-            submitError.style.display = "none"
-            },3000);
-        return false;
-    }else{
-        submitError.innerHTML=`<i class="fa-solid icon fa-square-check  fa-2xl" style="color: #63E6BE;"></i>`;
-        return true;
-    }
-}
 
 
 // hide and show password
@@ -124,3 +111,32 @@ eye.addEventListener('click',()=>{
         pass.setAttribute("type", "password");
     }
 })
+
+
+// whole Validation
+document.addEventListener('DOMContentLoaded',()=>{
+    form = document.querySelector("form");
+    form.addEventListener("submit",
+    (event)=>{
+        event.preventDefault();
+        if(!nameValidation() || !emailValidation() || !passwordValidation() || !phoneValidation() || !meassageValidation()   ){
+            submitError.innerHTML=`Please Fix The Error Above`;
+            setTimeout(()=>{
+                submitError.style.display = "none"
+                },3000);
+            return false;
+        }else{
+            submitError.innerHTML=`<i class="fa-solid icon fa-square-check  fa-2xl" style="color: #63E6BE;"></i>`;
+            // converting Form Content to json object.  
+            let formData = new FormData(form);
+            // js object
+            const jsObject = Object.fromEntries(formData);
+            // json object
+            const jsonObject =JSON.stringify(jsObject) ;
+            console.log(jsObject);
+            console.log(jsonObject);
+            return true;
+        }
+    })
+})
+
